@@ -1,6 +1,7 @@
 ﻿using DellChallenge.D2.Web.Models;
 using DellChallenge.D2.Web.Services;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace DellChallenge.D2.Web.Controllers
 {
@@ -20,6 +21,20 @@ namespace DellChallenge.D2.Web.Controllers
             return View(model);
         }
 
+        [HttpGet("modify")]
+        public IActionResult Modify(ProductModel prod)
+        {
+           // var model = _productService.GetByID(id);
+            return View(prod);
+        }
+
+        [HttpPost("update")]
+        public IActionResult Update(ProductModel prod)
+        {
+             var model = _productService.Update(prod);
+            return RedirectToAction("Index");
+        }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -31,6 +46,13 @@ namespace DellChallenge.D2.Web.Controllers
         {
             _productService.Add(newProduct);
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Guid id)
+        {
+            var isSuccess = _productService.Delete(id);
+            return RedirectToAction("Index",isSuccess);
         }
     }
 }

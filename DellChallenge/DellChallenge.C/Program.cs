@@ -10,30 +10,32 @@ namespace DellChallenge.C
             //      1. clean coding
             //      2. naming standards
             //      3. code reusability, hence maintainability
-            StartHere();
+            Calculate();
             Console.ReadKey();
         }
 
-        private static void StartHere()
+        private static void Calculate()
         {
-            myObject _MyNewObject = new myObject();
-            int obj1 = _MyNewObject.Do(1, 3);
-            int num2 = _MyNewObject.DoExtended(1, 3, 5);
-            Console.WriteLine(obj1);
-            Console.WriteLine(num2);
+            Console.WriteLine(Calculator.Add(1));
+            Console.WriteLine(Calculator.Add());
+            Console.WriteLine(Calculator.Add(1, 3));
+            Console.WriteLine(Calculator.Add(1, 3, 5));
+            
         }
     }
 
-    class myObject
+    public static class Calculator
     {
 
-        public int Do(int a, int b)
+        public static int Add(params int[] args)
         {
-            return a + b;
-        }
-
-        public int DoExtended(int a, int b, int c)
-        { return a + b + c;
+            int result = 0;
+            if (args.Length > 0) {
+                for (int i = 0; i < args.Length; i++) {
+                    result = result + args[i];
+                }
+            }
+            return result;
         }
     }
 }
